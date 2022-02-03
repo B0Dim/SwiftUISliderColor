@@ -8,9 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var red = Double.random(in: 0...255)
+    @State private var green = Double.random(in: 0...255)
+    @State private var blue = Double.random(in: 0...255)
+    
     var body: some View {
-        Text("Hello, world!")
+        ZStack {
+            Color.indigo
+                .ignoresSafeArea()
+            VStack(spacing: 30) {
+                RectangleView(
+                    redColor: red, greenColor: green, blueColor: blue
+                )
+                    .padding(.top, 20)
+                VStack {
+                    ColorSliderView(value: $red, color: .red)
+                    ColorSliderView(value: $green, color: .green)
+                    ColorSliderView(value: $blue, color: .blue)
+                }
+                Spacer()
+            }
             .padding()
+        }
+        
     }
 }
 
@@ -19,3 +39,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
