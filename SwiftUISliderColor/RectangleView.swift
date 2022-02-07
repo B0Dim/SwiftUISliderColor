@@ -14,14 +14,10 @@ struct RectangleView: View {
 
     
     var body: some View {
-        Rectangle()
+        Color(red: redColor / 255,
+                  green: greenColor / 255,
+                  blue: blueColor / 255)
             .frame(height: 170)
-            .foregroundColor(
-                Color(
-                    red: redColor / 255,
-                    green: greenColor / 255,
-                    blue: blueColor / 255)
-                             )
             .cornerRadius(15)
             .overlay(
                 RoundedRectangle(cornerRadius: 15)

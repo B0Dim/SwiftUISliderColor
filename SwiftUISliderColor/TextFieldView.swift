@@ -11,30 +11,30 @@ struct TextFieldView: View {
     @Binding var textValue: String
     @Binding var value: Double
     
+    @State private var showAlert = false
+    
     var body: some View {
-        TextField("100", text: $textValue)
-            .onChange(of: textValue) { newValue in
-                checkNewValue(newValue)
+        TextField("100", text: $textValue) { _ in
+            withAnimation {
+                checkNewValue()
             }
-            .keyboardType(.decimalPad)
-            .frame(width: 50, alignment: .leading)
-            .textFieldStyle(.roundedBorder)
+        }
+        .keyboardType(.decimalPad)
+        .frame(width: 50, alignment: .leading)
+        .textFieldStyle(.roundedBorder)
+        .alert("Wrong Format", isPresented: $showAlert, actions: {}) {
+            Text("Please enter value from 0 to 255")
+        }
     }
     
-    private func checkNewValue(_ newValue: String) {
-        guard let value = Int(newValue) else {
-            self.value = 0
-            textValue = "0"
+    private func checkNewValue() {
+        if let value = Int(textValue), (0...255).contains(value) {
+            self.value = Double(value)
             return
         }
-        if value <= 0 {
-            self.value = 0
-        } else if value > 255 {
-            self.value = 255
-        } else {
-            self.value = Double(value)
-        }
-        textValue = String(lround(self.value))
+        showAlert.toggle()
+        value = 0
+        textValue = "0"
     }
 }
 
