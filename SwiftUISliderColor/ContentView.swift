@@ -42,9 +42,6 @@ struct ContentView: View {
                 }
                 .padding()
             }
-//            .onTapGesture {
-//                isInputActive = false
-//            }
         }
 
         
